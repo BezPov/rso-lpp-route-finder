@@ -1,17 +1,31 @@
 language: generic
-sudo: required
+os: linux
 services: docker
 branches:
   only:
-    - master
+  - master
 env:
   global:
   - PROJECT_NAME=lpp-route-finder
-  - PROJECT_VERSION=1.0.0
+  - PROJECT_VERSION=1.0.6
   - DOCKER_USERNAME=bezpov
-  - secure: JwKtgnq0oiEIceOHiFcDweWk1Hfw/12ig1g7Q8ZvrlJOBMfTynrPdc/sbxqePlH7xlpiBl85L4l2eqvRLxxStlsQtW4YIsRuMMbjKhlBfFlmuOUbsgCoe+eVTNr4hXqyYNpT4OEkYTs9jeD/PnGGsHGt6CRPlSqDRNOnQiMG4twMkC33uekhsCYQZ2q6x3POWQi9KzaYa92AxmHVyzb2+ThhbwtXw2ZVSGLirDze2/mHUuvuzDizftxfDCz8QLsM2V/efjwlucDqbfNXrPbSRde9BrbifArIplMg1ueVvDyNalXC049UEQx1zDnXcwRA2umK635DpXyXVo2FZFJpaF6S/wBT3Cc+ROdsL3dA5wbClJtuqEPYeapJJjRelZju3RLg4wvIwqREkOoIrO3TssAEvZ7IdpPsYKvdwLI1wnWsrJrUQa4ZN/i77rnz78p2iVwlBw40poiM02wMWD6lDnyT0S0+E6OuKrvSJ9W+zPnuRmvtiELyOyKR837g7I8XXgidHcs/JsuOZ4N4F9Yk5LL+hdXYSr0i3bBOLKP6pczoh5r5lvEqffclXVfyLYeLl7zCtnsTsacxo36UQKBXxLGBQvDAoj6iq8Aydd/sHG1OAVDL5fHktmd0nD5GYFXls8OgfsXRYaYjqwj3pbc8OQBHQrbOjYtXhxGcAD00Dqo=
+  - secure: NLggFZo95xQ1XCTK1x0C+SkxmXyPYsj7h4NPCfAxbvrURnfLYgNJ0hAaITePIBoGVyALFEiIKIgrgar61et3JAlJo+AIGqQ3QaAF9YF37TDxRNOYt7zZz4lOym5DAIPOXiTsQgnLju9Z39WiIVH7Is23NPhibS6eDCdMQxAw+3QRpXHxWJBRZjrzmTyN0oNAW75S3zKrq90L2C+f5WEwpUFFM83bJr2VEYeTKV3O0iWaUkY9srdRWtMvskk2hxBxGypvrGxLdinPqLUZG+XqAmucOl+iGrdKEpwnaPGwU5vWg+ONgv6uj07uK4rFGwcm/14SzCopOotVS9uZ4c/s0EEpSTcm4wBLUg0gnRWSBldjbeQhBQ+ywF8zYKI2WYB0Dm53FPC6FjcN0uwckL+J9qrV7CY7CfTFBSlFnX/QSYIX91RqRSa9KFn4QaykEZzMAZLDCROYFkIYIYSCJFwblzVK84U7vKYZnkNSwTsMN6LKcjy6i+DlNZYzdMF8RmF1O6mf3rbQ3ORHc9pBYUGeyOxAwgwh0FZnStuQWb8Nivl/T5ZDBlFtk8tld0paN7cVQ9aatSaQJEejKeNDEgFhFXP4M0qxSZOPdn9h2TwU8RDmMG6YVlXPsmL1RXNiO1/uNjNgtWnhAIp4/Me1y4HYtrW29Bie4s6IgaIg0G+fth4=
+  - secure: mi0m4i9ks5O5J3BtLkdlltdX2lBW20uB1Si5Y2rygxHZNBGr9aokx74m87ETcMqJf7KPlgsF6AZTDI3BG1Xkik18iazlxKGNuo0delMlydZy5yfCjQvm6L3AokMWPoc0n8xir2uqwpi+0rvfpSWBtRl9lBzHkVsTpWdL2srZ61FGjLl44UdtBBIhQGW8Ln6x9Zcls/Eij0aeHA2bEho+0Dn/qn8/7611qJE7WILOGNg/BUmsOcGt3R2v4uRQ0HamCxf1rQAzTqVCfWzi9/AmBjopRJR9Ec63l7fTj8xoVS1fK3/yyADT6MKSgsQVg2z7QAXKLlowfE1lK7D2nURLPC98mk0BJgYoFDocX318NsUj1USTS+rLqQ9BOPjLP2wY8L4Zj5TXUgPSi4yvumaWt8Ouer0Nxsq3U24f4HnFHBmTAk0aHMznQtSdM8xyIMvyLLIoaQzyFNqfZSqc0hXaJLPiKipTexqEDolN3Zb4EryCxWPZYb7yzXgt9VV60rTgViJtSIrbbf61W0/f3KeJc2jluYN6CEEn/zyyRlFvUCMZPrVhhSHDZXQvCFDJCrhILwJ9sdbOUC/d+8C1wV8vLfQ31GM1MJ4TE9T+7jrfpY4nBRQEU/x9kefkkPioyrTkc/F3/HfAz+cdSrlyLT9wL+wZY/ctMojiClVIQJ3kf9g=
 before_install:
+- echo "$GOOGLE_INTEGRATION_PASSWORD" | gpg --batch --yes --passphrase-fd 0 ./config/etcd.json.gpg
+- echo "$GOOGLE_INTEGRATION_PASSWORD" | gpg --batch --yes --passphrase-fd 0 ./config/logit-io-config.json.gpg
+- echo "$GOOGLE_INTEGRATION_PASSWORD" | gpg --batch --yes --passphrase-fd 0 ./config/google-travis-service-account.json.gpg
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 - docker image build -t $PROJECT_NAME:$PROJECT_VERSION .
 - docker image tag $PROJECT_NAME:$PROJECT_VERSION $DOCKER_USERNAME/$PROJECT_NAME:$PROJECT_VERSION
 - docker image push $DOCKER_USERNAME/$PROJECT_NAME
+- gcloud version || true
+- if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; export
+  CLOUDSDK_CORE_DISABLE_PROMPTS=1; curl https://sdk.cloud.google.com | bash; fi
+- source /home/travis/google-cloud-sdk/path.bash.inc
+- gcloud version
+- gcloud auth activate-service-account --key-file ./config/google-travis-service-account.json
+- gcloud config set project massive-boulder-263710
+- gcloud container clusters get-credentials lpp --zone us-central1-a --project massive-boulder-263710
+- gcloud components install kubectl
+- kubectl apply -f ./kubernetes/deployment.yaml
