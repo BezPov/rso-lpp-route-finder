@@ -41,7 +41,7 @@ metadata:
 spec:
   ports:
     - protocol: TCP
-      port: 85
+      port: 86
       targetPort: 8080
   selector:
     app: lpp-route-finder
