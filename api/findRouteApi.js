@@ -12,12 +12,32 @@ class FindRouteApi {
             throw new Error('toStation.notFound');
         }
 
-        return;
+        return {
+            fromStation,
+            toStation
+        };
     }
 
     static async fetchStation(stationId) {
         const url = `http://localhost:8080/stations/${stationId}`;
         // PROD const url = `http://lpp-parser-service/stations/${stationId}`;
+
+        try {
+            const request = await axios.get(url);
+
+            const data = request.data;
+
+            if (data.success) {
+                return data.data;
+            }
+        } catch (ex) {
+            console.log(ex);
+        }
+    }
+
+    static async fetchBuses(busNumber) {
+        const url = `http://localhost:8080/buses?busNumber=${busNumber}`;
+        // PROD const url = `http://lpp-parser-service/buses/${busId}`;
 
         try {
             const request = await axios.get(url);
