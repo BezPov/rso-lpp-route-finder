@@ -15,6 +15,9 @@ spec:
       containers:
         - image: bezpov/lpp-route-finder:1.0.6
           name: lpp-route-finder-container
+          env:
+            - name: ETCD_SERVER
+              value: "http://etcd-client:2379"
           ports:
             - containerPort: 8080
           livenessProbe:
@@ -42,7 +45,7 @@ spec:
   ports:
     - protocol: TCP
       port: 86
-      targetPort: 8080
+      targetPort: 8081
   selector:
     app: lpp-route-finder
   type: NodePort
